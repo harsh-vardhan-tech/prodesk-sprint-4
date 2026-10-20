@@ -179,11 +179,14 @@ async function doAiGeneration(e) {
    prompt += "- Do NOT include bracketed placeholders like [Your Address] or [Phone Number].";
 
    try {
-      const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + GEMINI_API_KEY;
+      const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent";
 
       const response = await fetch(endpoint, {
          method: "POST",
-         headers: { "Content-Type": "application/json" },
+         headers: {
+            "Content-Type": "application/json",
+            "X-goog-api-key": GEMINI_API_KEY
+         },
          body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }]
          })
@@ -191,7 +194,10 @@ async function doAiGeneration(e) {
 
       if (!response.ok) {
          const errJson = await response.json().catch(function () { return {}; });
-         const msg = errJson.error && errJson.error.message ? errJson.error.message : "HTTP " + response.status;
+         let msg = errJson.error && errJson.error.message ? errJson.error.message : "HTTP " + response.status;
+         if (msg.includes("suspended")) {
+            msg = "Your Google Cloud project is suspended. Please click 'Create API key in new project' in Google AI Studio or use Quick Template.";
+         }
          throw new Error(msg);
       }
 
