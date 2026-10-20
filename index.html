@@ -2,141 +2,109 @@
 <html lang ="en">
 <head>
   <meta charset ="UTF-8">
-  <meta name ="viewport" content ="width=device-width, initial-scale=1.0">
-  <title>AI Cover Letter Generator | Prodesk IT Sprint 4</title>
+<meta name ="viewport" content ="width=device-width, initial-scale=1.0">
+<title>AI Cover Letter Generator</title>
   <link rel ="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel ="stylesheet" href ="/src/style.css">
-  <script src ="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link rel  ="stylesheet" href ="/src/style.css">
+<script src ="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head> <body>
-  <div class ="app-container">
-    <header class ="app-header">
-      <div class ="logo-area"> <i class ="fa-solid fa-wand-magic-sparkles logo-icon"></i>
+  <div class ="container">
+    <div class ="top-bar">
+      <div class ="app-logo"> <i class ="fa-solid fa-wand-magic-sparkles logo-icon"></i>
         <div>
-          <h1>AI Cover Letter Generator</h1>
-          <p class ="subtitle">Prodesk IT Sprint 4 &bull; Foundation SaaS Utility</p>
+          <h2>AI Cover Letter Generator</h2>
+          <p class ="sub-title">Sprint 4 - Prodesk IT</p>
         </div>
       </div>
-      <div class ="header-badges">
-        <span class ="api-status-badge"><i class ="fa-solid fa-shield-halved"></i> .env Protected</span>
-        <button id ="btnSample" type ="button" class ="btn-sample"><i class ="fa-solid fa-wand-sparkles"></i> Load Sample</button>
-      </div>
-    </header>
+      <button id ="sampleBtn" type ="button" class ="btn-sample"><i class ="fa-solid fa-fill-drip"></i> Fill Sample</button>
+    </div>
 
-    <main class ="main-layout">
-      <section class ="form-section">
-        <div class ="card-header">
-          <h2><i class ="fa-solid fa-sliders"></i> Job & Candidate Details</h2>
-          <span class ="form-badge">Input Payload</span>
-        </div>
+    <div class ="main-grid">
+      <div class ="form-card">
+        <h3 class ="card-title"><i class ="fa-solid fa-pen-to-square"></i> Your Details</h3>
 
-        <form id ="coverLetterForm" class ="form-grid">
-          <div class ="input-row">
-            <div class ="input-group">
-              <label for ="candidateName"><i class ="fa-solid fa-user"></i> Candidate Name *</label>
-              <input type ="text" id ="candidateName" placeholder ="e.g. Harsh Vardhan" required autocomplete ="name">
+        <form id ="mainForm">
+          <div class ="row-2">
+            <div class ="field"> <label for ="nameInput">Your Name *</label>
+              <input type ="text" id ="nameInput" placeholder ="e.g. Harsh Vardhan" required>
             </div>
-            <div class ="input-group">
-              <label for ="targetCompany"><i class ="fa-solid fa-building"></i> Target Company *</label>
-              <input type ="text" id ="targetCompany" placeholder ="e.g. Prodesk IT" required>
+            <div class ="field"> <label for ="companyInput">Target Company *</label>
+              <input type ="text" id ="companyInput" placeholder ="e.g. Prodesk IT" required>
             </div>
           </div>
 
-          <div class ="input-row">
-            <div class ="input-group">
-              <label for ="jobRole"><i class ="fa-solid fa-briefcase"></i> Job Role *</label>
-              <input type ="text" id ="jobRole" placeholder ="e.g. Junior Full Stack Developer" required>
+          <div class ="row-2">
+            <div class ="field"> <label for ="roleInput">Job Role *</label>
+              <input type ="text" id ="roleInput" placeholder ="e.g. Junior Full Stack Developer" required>
             </div>
-            <div class ="input-group">
-              <label for ="keySkills"><i class ="fa-solid fa-code"></i> Key Skills *</label>
-              <input type ="text" id ="keySkills" placeholder ="e.g. HTML, CSS, JavaScript, REST APIs, Git" required>
+            <div class ="field"> <label for ="skillsInput">Key Skills *</label>
+              <input type ="text" id ="skillsInput" placeholder ="e.g. HTML, CSS, JavaScript, Git" required>
             </div>
           </div>
 
-          <div class ="input-group">
-            <label for ="jobDesc"><i class ="fa-solid fa-file-lines"></i> Job Description (Optional Context)</label>
-            <textarea id ="jobDesc" rows ="3" placeholder ="Paste key job requirements or responsibilities..."></textarea>
+          <div class ="field"> <label for ="jdInput">Job Description (optional)</label>
+            <textarea id ="jdInput" rows ="3" placeholder ="Paste job requirements here..."></textarea>
           </div>
 
-          <div class ="input-group">
-            <label><i class ="fa-solid fa-file-pdf"></i> Upload Resume (PDF - Phase 3 Extraction)</label>
-            <div id ="dropZone" class ="dropzone">
-              <i class ="fa-solid fa-cloud-arrow-up drop-icon"></i>
-              <p>Drag & drop your resume PDF here or <span class ="browse-link">browse</span></p>
-              <span class ="drop-hint">Extracts text client-side via PDF.js for AI personalization</span>
-              <input type ="file" id ="resumeUpload" accept =".pdf" class ="hidden-file-input">
+          <div class ="field">
+            <label>Upload Resume PDF (optional)</label>
+            <div id ="dropArea" class ="drop-box">
+              <i class ="fa-solid fa-cloud-arrow-up drop-ico"></i>
+              <p>Drop PDF here or <span class ="browse-txt">browse</span></p>
+              <input type ="file" id ="pdfFileInput" accept =".pdf" class ="hidden">
             </div>
-            <div id ="resumeStatus" class ="resume-status hidden">
-              <div class ="resume-info"> <i class ="fa-solid fa-file-pdf pdf-ico"></i>
-                <div>
-                  <strong id ="resumeName">resume.pdf</strong>
-                  <span id ="resumeWords">0 words parsed</span>
-                </div>
+            <div id ="pdfInfo" class ="pdf-info hidden">
+              <div class ="pdf-row"> <i class ="fa-solid fa-file-pdf pdf-ico"></i>
+                <div> <strong id ="pdfName">file.pdf</strong> <span id ="pdfWords">0 words</span> </div>
               </div>
-              <button type ="button" id ="removeResumeBtn" class ="btn-remove" title ="Remove resume"><i class ="fa-solid fa-xmark"></i></button>
+              <button type ="button" id ="removePdfBtn" class ="btn-x" title ="Remove"><i class ="fa-solid fa-xmark"></i></button>
             </div>
           </div>
 
-          <div class ="button-cluster">
-            <button type ="submit" id ="btnAiGenerate" class ="btn-primary">
-              <i class ="fa-solid fa-wand-magic-sparkles"></i> <span>Generate with AI (Gemini)</span>
-            </button>
-            <button type ="button" id ="btnSimulate" class ="btn-secondary">
-              <i class ="fa-solid fa-bolt"></i> <span>Quick Template (Simulate)</span>
-            </button>
-            <button type ="reset" id ="btnReset" class ="btn-reset">
-              <i class ="fa-solid fa-rotate-left"></i> <span>Reset</span>
-            </button>
+          <div class ="btn-row">
+            <button type ="submit" id ="aiBtn" class ="btn-ai"> <i class ="fa-solid fa-wand-magic-sparkles"></i> Generate with AI</button>
+            <button type ="button" id ="simBtn" class ="btn-sim"> <i class ="fa-solid fa-bolt"></i> Quick Template</button>
+            <button type ="reset" id ="resetBtn" class ="btn-reset"> <i class ="fa-solid fa-rotate-left"></i> Reset</button>
           </div>
         </form>
-      </section>
+      </div>
 
-      <section class ="preview-section">
-        <div class ="card-header preview-header">
-          <div>
-            <h2><i class ="fa-solid fa-file-signature"></i> Cover Letter Preview</h2>
-            <span id ="generationBadge" class ="mode-badge">Awaiting Generation</span>
-          </div>
-          <div class ="preview-actions">
-            <span id ="wordCount" class ="stat-pill">0 words</span>
-            <button type ="button" id ="btnCopy" class ="action-btn" title ="Copy to clipboard" disabled>
-              <i class ="fa-regular fa-copy"></i> <span id ="copyBtnText">Copy</span>
-            </button>
-            <button type ="button" id ="btnDownload" class ="action-btn" title ="Download text" disabled>
-              <i class ="fa-solid fa-download"></i> <span>Download</span>
-            </button>
+      <div class ="preview-card">
+        <div class ="preview-top">
+          <h3 class ="card-title"><i class ="fa-solid fa-file-lines"></i> Cover Letter</h3>
+          <div class ="preview-btns">
+            <span id ="wordCount" class ="word-pill">0 words</span>
+            <button type ="button" id ="copyBtn" class ="btn-copy" disabled> <i class ="fa-regular fa-copy"></i> <span id ="copyText">Copy</span></button>
+            <button type ="button" id ="dlBtn" class ="btn-copy" disabled> <i class ="fa-solid fa-download"></i> Download</button>
           </div>
         </div>
 
         <div class ="preview-body">
-          <div id ="emptyState" class ="state-box empty-state">
-            <i class ="fa-regular fa-envelope-open state-icon"></i>
-            <h3>No Cover Letter Generated Yet</h3>
-            <p>Fill in candidate details and click <strong>Generate with AI</strong> for an LLM tailored letter or <strong>Quick Template</strong> for instant template interpolation.</p>
+          <div id ="emptyBox" class ="state-box">
+            <i class ="fa-regular fa-envelope-open big-ico"></i>
+            <h3>No Letter Yet</h3>
+            <p>Fill details and click Generate with AI or Quick Template</p>
           </div>
 
-          <div id ="loadingState" class ="state-box loading-state hidden">
-            <div class ="ai-spinner"></div>
-            <h3>Generating with Gemini AI...</h3>
-            <p>Injecting state parameters & synthesizing contextual cover letter (2-5s latency)</p>
+          <div id ="loadBox" class ="state-box hidden">
+            <div class ="spin-loader"></div> <h3>Generating...</h3>
+            <p>Sending to Gemini AI please wait</p>
           </div>
 
-          <div id ="errorState" class ="state-box error-state hidden">
-            <i class ="fa-solid fa-triangle-exclamation error-icon"></i>
-            <h3 id ="errorTitle">Generation Error</h3>
-            <p id ="errorMessage">Unable to connect to Gemini API. Check your .env configuration.</p>
-            <button type ="button" id ="btnErrorFallback" class ="btn-secondary"><i class ="fa-solid fa-bolt"></i> Fallback to Quick Template</button>
+          <div id ="errBox" class ="state-box err-state hidden">
+            <i class ="fa-solid fa-triangle-exclamation err-ico"></i>
+            <h3 id ="errTitle">Error</h3> <p id ="errMsg">Something went wrong</p>
+            <button type ="button" id ="fallbackBtn" class ="btn-sim">Use Quick Template Instead</button>
           </div>
 
-          <div id ="outputContainer" class ="output-wrapper hidden">
-            <div id ="letterContent" class ="letter-paper"></div>
+          <div id ="outputBox" class ="letter-wrapper hidden">
+            <div id ="letterOut" class ="letter-paper"></div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
 
-    <footer class ="app-footer">
-      <p>Prodesk IT Foundation Sprint 4 &bull; Built with HTML, CSS, Vanilla JS, Vite, PDF.js & Gemini API &bull; Harsh Vardhan</p>
-    </footer>
+    <div class ="footer"> <p>AI Cover Letter Generator | Prodesk IT Sprint 4 Project</p> </div>
   </div>
   <script type ="module" src ="/src/main.js"></script>
 </body>
