@@ -41,8 +41,8 @@ reset button to clear everything
 ## project files
 
 index html has the form dropzone preview area and layout
-src style css has dark theme styling responsive grid
-src main js has all the javascript logic fetch gemini pdf extract dom
+style css has dark theme styling responsive grid
+script js has all the javascript logic fetch gemini pdf extract dom
 dot env has the api key locally and is ignored by git
 dot env example shows the template variable name
 dot gitignore keeps dot env node modules and dist out of git
