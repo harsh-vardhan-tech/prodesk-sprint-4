@@ -179,7 +179,7 @@ async function doAiGeneration(e) {
    prompt += "- Do NOT include bracketed placeholders like [Your Address] or [Phone Number].";
 
    try {
-      const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent";
+      const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent";
 
       const response = await fetch(endpoint, {
          method: "POST",
