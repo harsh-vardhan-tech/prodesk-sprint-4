@@ -179,34 +179,64 @@ async function doAiGeneration(e) {
    prompt += "- Do NOT include bracketed placeholders like [Your Address] or [Phone Number].";
 
    try {
-      const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent";
+      const candidateModels = [
+         "gemini-3.6-flash",
+         "gemini-2.5-flash",
+         "gemini-1.5-flash",
+         "gemini-flash-latest"
+      ];
 
-      const response = await fetch(endpoint, {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json",
-            "X-goog-api-key": GEMINI_API_KEY
-         },
-         body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }]
-         })
-      });
+      let lastError = null;
+      let generatedText = "";
 
-      if (!response.ok) {
-         const errJson = await response.json().catch(function () { return {}; });
-         let msg = errJson.error && errJson.error.message ? errJson.error.message : "HTTP " + response.status;
-         if (msg.includes("suspended")) {
-            msg = "Your Google Cloud project is suspended. Please click 'Create API key in new project' in Google AI Studio or use Quick Template.";
+      for (let i = 0; i < candidateModels.length; i++) {
+         const model = candidateModels[i];
+         const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent";
+
+         try {
+            const response = await fetch(endpoint, {
+               method: "POST",
+               headers: {
+                  "Content-Type": "application/json",
+                  "X-goog-api-key": GEMINI_API_KEY
+               },
+               body: JSON.stringify({
+                  contents: [{ parts: [{ text: prompt }] }]
+               })
+            });
+
+            if (!response.ok) {
+               const errJson = await response.json().catch(function () { return {}; });
+               let msg = errJson.error && errJson.error.message ? errJson.error.message : "HTTP " + response.status;
+               if (response.status === 404 && i < candidateModels.length - 1) {
+                  continue;
+               }
+               if (msg.includes("suspended")) {
+                  msg = "Your Google Cloud project is suspended. Please click 'Create API key in new project' in Google AI Studio or use Quick Template.";
+               }
+               throw new Error(msg);
+            }
+
+            const result = await response.json();
+            const candidate = result.candidates && result.candidates[0];
+            if (candidate && candidate.content && Array.isArray(candidate.content.parts)) {
+               const textParts = candidate.content.parts.filter(function (p) { return p.text && !p.thought; });
+               if (textParts.length > 0) {
+                  generatedText = textParts.map(function (p) { return p.text; }).join("\n\n");
+               } else if (candidate.content.parts[0] && candidate.content.parts[0].text) {
+                  generatedText = candidate.content.parts[0].text;
+               }
+            }
+
+            if (generatedText) break;
+         } catch (mErr) {
+            lastError = mErr;
+            if (i === candidateModels.length - 1) throw mErr;
          }
-         throw new Error(msg);
       }
 
-      const result = await response.json();
-      const candidate = result.candidates && result.candidates[0];
-      const generatedText = candidate && candidate.content && candidate.content.parts && candidate.content.parts[0] && candidate.content.parts[0].text;
-
       if (!generatedText) {
-         throw new Error("No response text returned by Gemini AI");
+         throw lastError || new Error("No response text returned by Gemini AI");
       }
 
       displayLetter(generatedText);
