@@ -18,24 +18,20 @@ basically its a web app where you put your candidate name target company job rol
 html for the form layout and preview card structure
 css for dark theme styling and responsive layout
 vanilla javascript for form handling fetch api and dom manipulation
-vite for local dev server and secure env variable support
+vite for local dev server
 pdf js library for extracting text from uploaded resume pdf
 google gemini api for generating cover letter
-dot env file for keeping api key safe and hidden from github
 
 
 ## features i added
 
 form capturing candidate name target company job role key skills and optional job description
-state handling on form submit and quick template click
-data simulation controller function interpolating state variables into a hardcoded template string
+quick template mode that interpolates state variables into hardcoded template string
 preview card showing the generated cover letter
 copy to clipboard button with copied animation
 download button to save generated letter as text file
 google gemini api integration using fetch post request
-prompt engineering injecting candidate parameters into system prompt payload
-environment variable security using dot env and vite so api key never leaks on github
-generating loading state with spinner during 2-5 second api wait time
+generating loading state with spinner during api wait time
 error handling card with fallback button to quick template if api fails
 drag and drop resume upload zone with file browse support
 pdf text extraction using pdf js in browser
@@ -52,23 +48,19 @@ reset button to clear form and preview
 index html has the form upload dropzone and preview card layout
 style css has dark theme colors responsive layout and letter paper styling
 script js has all the javascript logic fetch call pdf text extraction and dom handling
-dot env has the gemini api key locally and is ignored by git
-dot env example shows the sample variable name
-dot gitignore keeps dot env node modules and dist out of git
 Prompts md has the prompts i used during development
 README md is this file
 
 
 ## ai help
 
-i used ai to help me understand how to connect google gemini api using fetch how to manage api key securely in dot env with vite how to extract text from pdf using pdf js and how to write markdown parser function the design layout and styling i built myself
+i used ai to help me understand how to connect google gemini api using fetch how to extract text from pdf using pdf js and how to write markdown parser function the design layout and styling i built myself
 
 
 ## how to run
 
 1 clone the repo and open folder
 2 run npm install
-3 create dot env file and add VITE_GEMINI_API_KEY=your_key
-4 run npm run dev
-5 open localhost in browser
-6 you can also test without api key by clicking quick template button
+3 run npm run dev
+4 open localhost in browser
+5 you can test using quick template or add api key to test ai mode
