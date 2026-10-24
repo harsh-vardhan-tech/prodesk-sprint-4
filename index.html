@@ -2,10 +2,10 @@
 <html lang ="en">
 <head>
   <meta charset ="UTF-8">
-<meta name ="viewport" content ="width=device-width, initial-scale=1.0">
-<title>AI Cover Letter Generator</title>
+  <meta name ="viewport" content ="width=device-width, initial-scale=1.0">
+  <title>AI Cover Letter Generator</title>
   <link rel ="stylesheet" href ="style.css">
-<script src ="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src ="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head> <body>
   <div class ="container">
     <header class ="header">
@@ -17,7 +17,6 @@
     </header>
 
     <main class ="grid">
-      <!-- Form Section -->
       <section class ="card">
         <h2>Candidate Details</h2>
         <form id ="letterForm">
@@ -31,7 +30,6 @@
               <input type ="text" id ="companyInput" placeholder ="Prodesk IT" required>
             </div>
           </div>
-
           <div class ="form-row">
             <div class ="form-group">
               <label for ="roleInput">Job Role *</label>
@@ -42,12 +40,10 @@
               <input type ="text" id ="skillsInput" placeholder ="HTML, CSS, JavaScript, Git" required>
             </div>
           </div>
-
           <div class ="form-group">
             <label for ="jdInput">Job Description (optional)</label>
             <textarea id ="jdInput" rows ="3" placeholder ="Paste job requirements or key responsibilities here..."></textarea>
           </div>
-
           <div class ="form-group">
             <label>Upload Resume PDF (optional)</label>
             <div id ="dropZone" class ="dropzone">
@@ -60,7 +56,6 @@
               <button type ="button" id ="removeResumeBtn" class ="btn-remove" title ="Remove PDF">&times;</button>
             </div>
           </div>
-
           <div class ="btn-group">
             <button type ="submit" id ="generateBtn" class ="btn-primary">Generate with AI</button>
             <button type ="button" id ="templateBtn" class ="btn-secondary">Quick Template</button>
@@ -69,7 +64,6 @@
         </form>
       </section>
 
-      <!-- Preview Section -->
       <section class ="card preview-card">
         <div class ="preview-header">
           <h2>Cover Letter</h2>
@@ -79,25 +73,21 @@
             <button type ="button" id ="downloadBtn" class ="btn-secondary btn-sm" disabled>Download</button>
           </div>
         </div>
-
         <div class ="preview-content">
           <div id ="emptyState" class ="state-message">
             <p class ="state-title">No letter generated yet</p>
             <p class ="state-desc">Fill in the form on the left and click <strong>Generate with AI</strong> or <strong>Quick Template</strong>.</p>
           </div>
-
           <div id ="loadingState" class ="state-message hidden">
             <div class ="spinner"></div>
             <p class ="state-title">Generating cover letter...</p>
             <p class ="state-desc">Please wait while the letter is being prepared.</p>
           </div>
-
           <div id ="errorState" class ="state-message error-box hidden">
             <p id ="errorTitle" class ="state-title error-text">Generation Failed</p>
             <p id ="errorMessage" class ="state-desc">Something went wrong.</p>
             <button type ="button" id ="fallbackBtn" class ="btn-secondary btn-sm">Use Quick Template Instead</button>
           </div>
-
           <div id ="letterPaper" class ="letter-paper hidden"></div>
         </div>
       </section>
@@ -107,7 +97,6 @@
       <p>Made by Harsh Vardhan</p>
     </footer>
   </div>
-
   <script type ="module" src ="script.js"></script>
 </body>
 </html>
