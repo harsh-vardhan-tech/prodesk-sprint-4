@@ -1,111 +1,114 @@
 <!DOCTYPE html>
-<html lang ="en">
+<html lang="en">
 <head>
-  <meta charset ="UTF-8">
-<meta name ="viewport" content ="width=device-width, initial-scale=1.0">
-<title>AI Cover Letter Generator</title>
-  <link rel ="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel =  "stylesheet" href ="style.css">
-<script src ="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-</head> <body>
-  <div class ="container">
-    <div class ="top-bar">
-      <div class ="app-logo"> <i class ="fa-solid fa-file-lines logo-icon"></i>
-        <div>
-          <h2>AI Cover Letter Generator</h2>
-          <p class ="sub-title">Cover Letter Generator</p>
-        </div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Cover Letter Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-title">
+        <h1>AI Cover Letter Generator</h1>
+        <p>Generate customized, professional cover letters instantly</p>
       </div>
-      <button id ="sampleBtn" type ="button" class ="btn-sample"><i class ="fa-solid fa-fill-drip"></i> Fill Sample</button>
-    </div>
+      <button type="button" id="sampleBtn" class="btn-secondary">Load Sample</button>
+    </header>
 
-    <div class ="main-grid">
-      <div class ="form-card">
-        <h3 class ="card-title"><i class ="fa-solid fa-pen-to-square"></i> Your Details</h3>
-
-        <form id ="mainForm">
-          <div class ="row-2">
-            <div class ="field"> <label for ="nameInput">Your Name *</label>
-              <input type ="text" id ="nameInput" placeholder ="e.g. Harsh Vardhan" required>
+    <main class="grid">
+      <!-- Form Section -->
+      <section class="card">
+        <h2>Candidate Details</h2>
+        <form id="letterForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nameInput">Full Name *</label>
+              <input type="text" id="nameInput" placeholder="Harsh Vardhan" required>
             </div>
-            <div class ="field"> <label for ="companyInput">Target Company *</label>
-              <input type ="text" id ="companyInput" placeholder ="e.g. Prodesk IT" required>
-            </div>
-          </div>
-
-          <div class ="row-2">
-            <div class ="field"> <label for ="roleInput">Job Role *</label>
-              <input type ="text" id ="roleInput" placeholder ="e.g. Junior Full Stack Developer" required>
-            </div>
-            <div class ="field"> <label for ="skillsInput">Key Skills *</label>
-              <input type ="text" id ="skillsInput" placeholder ="e.g. HTML, CSS, JavaScript, Git" required>
+            <div class="form-group">
+              <label for="companyInput">Target Company *</label>
+              <input type="text" id="companyInput" placeholder="Prodesk IT" required>
             </div>
           </div>
 
-          <div class ="field"> <label for ="jdInput">Job Description (optional)</label>
-            <textarea id ="jdInput" rows ="3" placeholder ="Paste job requirements here..."></textarea>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="roleInput">Job Role *</label>
+              <input type="text" id="roleInput" placeholder="Junior Full Stack Developer" required>
+            </div>
+            <div class="form-group">
+              <label for="skillsInput">Key Skills *</label>
+              <input type="text" id="skillsInput" placeholder="HTML, CSS, JavaScript, Git" required>
+            </div>
           </div>
 
-          <div class ="field">
+          <div class="form-group">
+            <label for="jdInput">Job Description (optional)</label>
+            <textarea id="jdInput" rows="3" placeholder="Paste job requirements or key responsibilities here..."></textarea>
+          </div>
+
+          <div class="form-group">
             <label>Upload Resume PDF (optional)</label>
-            <div id ="dropArea" class ="drop-box">
-              <i class ="fa-solid fa-cloud-arrow-up drop-ico"></i>
-              <p>Drop PDF here or <span class ="browse-txt">browse</span></p>
-              <input type ="file" id ="pdfFileInput" accept =".pdf" class ="hidden">
+            <div id="dropZone" class="dropzone">
+              <p>Drag and drop resume PDF here, or <span class="link-text">browse</span></p>
+              <input type="file" id="resumeFile" accept=".pdf" class="file-input">
             </div>
-            <div id ="pdfInfo" class ="pdf-info hidden">
-              <div class ="pdf-row"> <i class ="fa-solid fa-file-pdf pdf-ico"></i>
-                <div> <strong id ="pdfName">file.pdf</strong> <span id ="pdfWords">0 words</span> </div>
-              </div>
-              <button type ="button" id ="removePdfBtn" class ="btn-x" title ="Remove"><i class ="fa-solid fa-xmark"></i></button>
+            <div id="resumeInfo" class="resume-info hidden">
+              <span id="resumeName">resume.pdf</span>
+              <span id="resumeWords" class="badge">0 words</span>
+              <button type="button" id="removeResumeBtn" class="btn-remove" title="Remove PDF">&times;</button>
             </div>
           </div>
 
-          <div class ="btn-row">
-            <button type ="submit" id ="aiBtn" class ="btn-ai"> <i class ="fa-solid fa-paper-plane"></i> Generate with AI</button>
-            <button type ="button" id ="simBtn" class ="btn-sim"> <i class ="fa-solid fa-bolt"></i> Quick Template</button>
-            <button type ="reset" id ="resetBtn" class ="btn-reset"> <i class ="fa-solid fa-rotate-left"></i> Reset</button>
+          <div class="btn-group">
+            <button type="submit" id="generateBtn" class="btn-primary">Generate with AI</button>
+            <button type="button" id="templateBtn" class="btn-secondary">Quick Template</button>
+            <button type="reset" id="resetBtn" class="btn-text">Reset</button>
           </div>
         </form>
-      </div>
+      </section>
 
-      <div class ="preview-card">
-        <div class ="preview-top">
-          <h3 class ="card-title"><i class ="fa-solid fa-file-lines"></i> Cover Letter</h3>
-          <div class ="preview-btns">
-            <span id ="wordCount" class ="word-pill">0 words</span>
-            <button type ="button" id ="copyBtn" class ="btn-copy" disabled> <i class ="fa-regular fa-copy"></i> <span id ="copyText">Copy</span></button>
-            <button type ="button" id ="dlBtn" class ="btn-copy" disabled> <i class ="fa-solid fa-download"></i> Download</button>
+      <!-- Preview Section -->
+      <section class="card preview-card">
+        <div class="preview-header">
+          <h2>Cover Letter</h2>
+          <div class="preview-actions">
+            <span id="wordCount" class="badge">0 words</span>
+            <button type="button" id="copyBtn" class="btn-secondary btn-sm" disabled>Copy</button>
+            <button type="button" id="downloadBtn" class="btn-secondary btn-sm" disabled>Download</button>
           </div>
         </div>
 
-        <div class ="preview-body">
-          <div id ="emptyBox" class ="state-box">
-            <i class ="fa-regular fa-envelope-open big-ico"></i>
-            <h3>No Letter Yet</h3>
-            <p>Fill details and click Generate with AI or Quick Template</p>
+        <div class="preview-content">
+          <div id="emptyState" class="state-message">
+            <p class="state-title">No letter generated yet</p>
+            <p class="state-desc">Fill in the form on the left and click <strong>Generate with AI</strong> or <strong>Quick Template</strong>.</p>
           </div>
 
-          <div id ="loadBox" class ="state-box hidden">
-            <div class ="spin-loader"></div> <h3>Generating...</h3>
-            <p>Please wait...</p>
+          <div id="loadingState" class="state-message hidden">
+            <div class="spinner"></div>
+            <p class="state-title">Generating cover letter...</p>
+            <p class="state-desc">Please wait while the letter is being prepared.</p>
           </div>
 
-          <div id ="errBox" class ="state-box err-state hidden">
-            <i class ="fa-solid fa-triangle-exclamation err-ico"></i>
-            <h3 id ="errTitle">Error</h3> <p id ="errMsg">Something went wrong</p>
-            <button type ="button" id ="fallbackBtn" class ="btn-sim">Use Quick Template Instead</button>
+          <div id="errorState" class="state-message error-box hidden">
+            <p id="errorTitle" class="state-title error-text">Generation Failed</p>
+            <p id="errorMessage" class="state-desc">Something went wrong.</p>
+            <button type="button" id="fallbackBtn" class="btn-secondary btn-sm">Use Quick Template Instead</button>
           </div>
 
-          <div id ="outputBox" class ="letter-wrapper hidden">
-            <div id ="letterOut" class ="letter-paper"></div>
-          </div>
+          <div id="letterPaper" class="letter-paper hidden"></div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
 
-    <div class ="footer"> <p>Made by Harsh Vardhan</p> </div>
+    <footer class="footer">
+      <p>Made by Harsh Vardhan</p>
+    </footer>
   </div>
-  <script type ="module" src ="script.js"></script>
+
+  <script type="module" src="script.js"></script>
 </body>
 </html>
