@@ -3,6 +3,11 @@
 this is my sprint 4 project for prodesk IT internship called AI Cover Letter Generator i built it using html css vanilla javascript vite pdf js and google gemini api
 
 
+## Live Website
+
+[Open AI Cover Letter Generator](https://prodesk-sprint-4.vercel.app/)
+
+
 ## what this project does
 
 basically its a web app where you put your candidate name target company job role and key skills and it generates a professional cover letter for you it has two modes one is quick template which uses string interpolation to make a cover letter instantly without api and other is ai mode which sends your details to google gemini api and gets a personalized letter back you can also upload your resume pdf and it extracts text from it using pdf js and sends it to gemini for dynamic personalization
