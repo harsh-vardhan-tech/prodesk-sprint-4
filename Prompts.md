@@ -1,28 +1,28 @@
 Prompt 1
 
-I want to build a SaaS style AI Cover Letter Generator for sprint 4. Create a form on the left that takes candidate name, target company, job role, and key skills. Write a JavaScript controller function that interpolates these variables into a hardcoded template string and shows the letter in a preview card on the right with a working copy to clipboard button.
+check my html code and find out error and tell me how to fix them also check my css and js i am making an ai cover letter generator for sprint 4 i need a form on left side taking candidate name target company job role and key skills and on right side a preview card showing the generated cover letter with a working copy to clipboard button keep design clean and modern without using react or any framework
 
 
 Prompt 2
 
-Connect the application to Google Gemini API using vanilla JavaScript. Show me how to structure the prompt with candidate details and send it using fetch. While waiting for the API response, show a generating spinner in the loading state.
+in js what is the details you use and what the meaning of each line i want to know how do you put this code better than my js write a controller function that interpolates the state variables into a hardcoded template string like dear hiring manager at company i am name and shows it on preview card also add a word count badge and copy to clipboard button with copied animation
 
 
 Prompt 3
 
-How do I keep my Gemini API key secure so it does not leak on GitHub? Explain how to set up a dot env file in Vite, read it using import.meta.env.VITE_GEMINI_API_KEY, and make sure dot env is added to dot gitignore before pushing.
+i have issue and bug in it how do i connect google gemini api using vanilla javascript and fetch show me how to structure the candidate details into prompt payload and send post request to gemini api also while waiting for the response how to show a generating spinner loading state and error card if something goes wrong
 
 
 Prompt 4
 
-Add an upload resume feature with a drag and drop area in HTML. Use the PDF.js library to read the uploaded PDF file in the browser, extract the text from the pages, and display the word count on the screen.
+how do i keep my gemini api key secure so it does not leak on github explain how to set up dot env file in vite read it using import meta env and make sure dot env is added to dot gitignore before pushing so my api key is never committed to public repo
 
 
 Prompt 5
 
-Append the extracted resume text into the Gemini API prompt payload so the generated cover letter is personalized to the candidate background. Also write a markdown parser function to convert the AI response into clean HTML paragraphs instead of a single raw text block.
+i want to add resume upload feature with drag and drop dropzone in my project how to use pdf js library in vanilla javascript to read uploaded pdf file extract text from all pages and show extracted word count on screen and append the resume text into the gemini api prompt so the letter is personalized
 
 
 Prompt 6
 
-Review the full code for any bugs. Make sure both quick template mode and AI generation work smoothly. Add a fill sample button for easy testing during the demo video, add a download text button, and ensure there are no console errors.
+check my full project for bugs and errors write a markdown parser function in javascript to convert the ai response into clean html paragraphs instead of single text block also add a quick template fallback button fill sample button for easy demo video testing and download button to save letter as txt file make sure all code runs clean with zero errors in console
