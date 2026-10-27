@@ -154,7 +154,7 @@ async function handleAiGeneration(e) {
   prompt += "- Make it concise, confident, and role-specific (around 200-300 words).\n";
   prompt += "- Do NOT include bracketed placeholders like [Address] or [Date].";
 
-  const candidateModels = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-flash-latest"];
+  const candidateModels = ["gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-flash-latest"];
   let generatedText = "";
   let lastError = null;
 
@@ -168,12 +168,19 @@ async function handleAiGeneration(e) {
           "Content-Type": "application/json",
           "X-goog-api-key": GEMINI_API_KEY
         },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            maxOutputTokens: 380,
+            temperature: 0.7,
+            thinkingConfig: { thinkingBudget: 0 }
+          }
+        })
       });
       if (!response.ok) {
+        if (i < candidateModels.length - 1) continue;
         const errJson = await response.json().catch(function () { return {}; });
         let msg = errJson.error && errJson.error.message ? errJson.error.message : "HTTP " + response.status;
-        if (response.status === 404 && i < candidateModels.length - 1) continue;
         throw new Error(msg);
       }
       const result = await response.json();
